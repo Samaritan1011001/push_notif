@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TEST</string>
+    <string name="default_notification_channel_name" translatable="true">test</string>
+
+</resources>

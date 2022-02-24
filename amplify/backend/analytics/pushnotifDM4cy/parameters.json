@@ -1,0 +1,22 @@
+{
+    "appName": "pushnotifDM4cy",
+    "roleName": "pinpointLambdaRole7fc80e8c",
+    "cloudformationPolicyName": "cloudformationPolicy7fc80e8c",
+    "cloudWatchPolicyName": "cloudWatchPolicy7fc80e8c",
+    "pinpointPolicyName": "pinpointPolicy7fc80e8c",
+    "authPolicyName": "pinpoint_amplify_7fc80e8c",
+    "unauthPolicyName": "pinpoint_amplify_7fc80e8c",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "appId": "2f918b6816a64e7b9aecab55df393c3e"
+}
