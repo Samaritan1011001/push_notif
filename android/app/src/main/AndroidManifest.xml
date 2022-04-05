@@ -46,10 +46,10 @@
         <!-- [END firebase_service] -->
         <receiver
             android:name="com.amazonaws.amplify.pushnotification.modules.RNPushNotificationBroadcastReceiver"
-            android:exported="false">
-            <intent-filter>
+            android:exported="true">
+            <!-- <intent-filter>
                 <action android:name="com.amazonaws.amplify.pushnotification.NOTIFICATION_OPENED"/>
-            </intent-filter>
+            </intent-filter> -->
         </receiver>
     <!-- [END Push notification config -->
 

@@ -12,9 +12,6 @@ target 'push_notif' do
     :hermes_enabled => false
   )
 
-  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
-
-  pod 'PushyRN', :path => '../node_modules/pushy-react-native'
 
   target 'push_notifTests' do
     inherit! :complete

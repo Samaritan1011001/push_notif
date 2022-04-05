@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   SafeAreaView,
@@ -16,14 +16,17 @@ import {
   Text,
   useColorScheme,
   View,
+  Alert
 } from 'react-native';
-import { Auth } from 'aws-amplify';
+import { Auth, Analytics } from 'aws-amplify';
 
 import {
   Colors,
   Header,
 } from 'react-native/Libraries/NewAppScreen';
+import PushNotification from '@aws-amplify/pushnotification';
 
+const myFirstEvent = { name: 'pn_url_open_event' };
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -52,11 +55,20 @@ const Section = ({children, title}) => {
 };
 
 const App = () => {
+ useEffect(()=>{
+  PushNotification.onNotificationOpened((notification) => {
+    console.log('the notification was tapped');
+    // Alert.alert("Notification tapped!")
+    isTapped?setIsTapped(false):setIsTapped(true)
+  });
+ });
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const [isTapped, setIsTapped] = useState(false);
 
   async function signOut() {
     try {
@@ -67,8 +79,6 @@ const App = () => {
 }
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
@@ -77,13 +87,12 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section >
+          {isTapped && <Section >
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
-          </Section>
+          </Section>}
         </View>
       </ScrollView>
-    </SafeAreaView>
   );
 };
 

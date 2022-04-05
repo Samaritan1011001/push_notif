@@ -12,8 +12,9 @@ import {name as appName} from './app.json';
  import PushNotification from '@aws-amplify/pushnotification';
  import Auth from '@aws-amplify/auth';
 import 'react-native-get-random-values';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Alert} from 'react-native';
 
 
 
@@ -21,7 +22,6 @@ Amplify.configure(awsconfig);
 
 Auth.configure(awsconfig);
 Analytics.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = "DEBUG";
 
 PushNotification.configure(awsconfig);
 PushNotification.onRegister((token) => {
@@ -30,12 +30,18 @@ PushNotification.onRegister((token) => {
 
 PushNotification.onNotification((notification) => {
   console.log('notification received', notification);
+  // notification.finish(PushNotificationIOS.FetchResult.NoData)
 });
 
-PushNotification.onNotificationOpened((notification) => {
-  console.log('the notification was tapped');
-});
+// PushNotification.onNotificationOpened((notification) => {
+//   console.log('the notification was tapped');
+//   Alert.alert("Notification tapped!")
+// });
+
+Amplify.Logger.LOG_LEVEL = "DEBUG";
+
 AppRegistry.registerComponent(appName, () => App);
+
 
 
 
