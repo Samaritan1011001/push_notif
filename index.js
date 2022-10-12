@@ -16,7 +16,9 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 import {AppRegistry, Alert} from 'react-native';
 
-
+if(__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
+}
 
 Amplify.configure(awsconfig);
 
@@ -24,6 +26,7 @@ Auth.configure(awsconfig);
 Analytics.configure(awsconfig);
 
 PushNotification.configure(awsconfig);
+
 PushNotification.onRegister((token) => {
   console.log('registered', token);
 });
@@ -33,10 +36,10 @@ PushNotification.onNotification((notification) => {
   // notification.finish(PushNotificationIOS.FetchResult.NoData)
 });
 
-// PushNotification.onNotificationOpened((notification) => {
-//   console.log('the notification was tapped');
-//   Alert.alert("Notification tapped!")
-// });
+PushNotification.onNotificationOpened((notification) => {
+  console.log('the notification was tapped');
+  // Alert.alert("Notification tapped!")
+});
 
 Amplify.Logger.LOG_LEVEL = "DEBUG";
 
@@ -45,3 +48,4 @@ AppRegistry.registerComponent(appName, () => App);
 
 
 
+// 99eb4a587c43907f785d490bcc89faef97b42f8bcffd999bbe05291d7a9d4a43

@@ -1,27 +1,27 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-pushnotif-dev-125406-authRole",
-            "UnauthRoleArn": "arn:aws:iam::401000839898:role/amplify-pushnotif-dev-125406-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::401000839898:role/amplify-pushnotif-dev-125406-authRole",
-            "Region": "us-west-2",
-            "DeploymentBucketName": "amplify-pushnotif-dev-125406-deployment",
-            "UnauthRoleName": "amplify-pushnotif-dev-125406-unauthRole",
-            "StackName": "amplify-pushnotif-dev-125406",
-            "StackId": "arn:aws:cloudformation:us-west-2:401000839898:stack/amplify-pushnotif-dev-125406/a7761fc0-375f-11ec-9a28-066e840df3a7",
-            "AmplifyAppId": "d37xiz0ebvccdg"
-        },
-        "categories": {
-            "auth": {
-                "cognito08ce48b4": {}
-            },
-            "notifications": {
-                "Pinpoint": {
-                    "Name": "pushnotifDM4cy-dev",
-                    "Id": "2f918b6816a64e7b9aecab55df393c3e",
-                    "Region": "us-west-2"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pushnotif-dev-125406-authRole",
+      "UnauthRoleArn": "arn:aws:iam::401000839898:role/amplify-pushnotif-dev-125406-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::401000839898:role/amplify-pushnotif-dev-125406-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-pushnotif-dev-125406-deployment",
+      "UnauthRoleName": "amplify-pushnotif-dev-125406-unauthRole",
+      "StackName": "amplify-pushnotif-dev-125406",
+      "StackId": "arn:aws:cloudformation:us-west-2:401000839898:stack/amplify-pushnotif-dev-125406/a7761fc0-375f-11ec-9a28-066e840df3a7",
+      "AmplifyAppId": "d37xiz0ebvccdg"
+    },
+    "categories": {
+      "auth": {
+        "cognito08ce48b4": {}
+      },
+      "notifications": {
+        "Pinpoint": {
+          "Name": "pushnotifDM4cy-dev",
+          "Id": "2f918b6816a64e7b9aecab55df393c3e",
+          "Region": "us-west-2"
         }
+      }
     }
+  }
 }

@@ -25,6 +25,7 @@ import {
   Header,
 } from 'react-native/Libraries/NewAppScreen';
 import PushNotification from '@aws-amplify/pushnotification';
+import { withAuthenticator } from 'aws-amplify-react-native';
 
 const myFirstEvent = { name: 'pn_url_open_event' };
 
@@ -56,11 +57,12 @@ const Section = ({children, title}) => {
 
 const App = () => {
  useEffect(()=>{
-  PushNotification.onNotificationOpened((notification) => {
-    console.log('the notification was tapped');
-    // Alert.alert("Notification tapped!")
-    isTapped?setIsTapped(false):setIsTapped(true)
-  });
+  // PushNotification.onNotificationOpened((notification) => {
+  //   // console.log('the notification was tapped', notification.getData().data.pinpoint);
+  //   // Alert.alert("Notification tapped!")
+  //   console.log('the notification was tapped')
+  //   isTapped?setIsTapped(false):setIsTapped(true)
+  // });
  });
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -78,11 +80,15 @@ const App = () => {
     }
 }
 
+const endpointId = 
+  Analytics.getPluggable('AWSPinpoint')._config.endpointId;
+  console.log("EnpintID -> ", endpointId);
   return (
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        {/* <Button title='Signout' onPress={signOut} /> */}
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,

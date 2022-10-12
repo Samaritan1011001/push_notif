@@ -13,10 +13,10 @@ target 'push_notif' do
   )
 
 
-  target 'push_notifTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  # target 'push_notifTests' do
+  #   inherit! :complete
+  #   # Pods for testing
+  # end
 
   # Enables Flipper.
   #
