@@ -6,28 +6,19 @@
  * @flow strict-local
  */
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Button,
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
   View,
-  Alert
 } from 'react-native';
-import { Auth, Analytics } from 'aws-amplify';
+import {Auth, Analytics} from 'aws-amplify';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import storage from '.';
+import { Platform } from 'react-native';
 
-import {
-  Colors,
-  Header,
-} from 'react-native/Libraries/NewAppScreen';
-import PushNotification from '@aws-amplify/pushnotification';
-import { withAuthenticator } from 'aws-amplify-react-native';
-
-const myFirstEvent = { name: 'pn_url_open_event' };
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -56,14 +47,60 @@ const Section = ({children, title}) => {
 };
 
 const App = () => {
- useEffect(()=>{
-  // PushNotification.onNotificationOpened((notification) => {
-  //   // console.log('the notification was tapped', notification.getData().data.pinpoint);
-  //   // Alert.alert("Notification tapped!")
-  //   console.log('the notification was tapped')
-  //   isTapped?setIsTapped(false):setIsTapped(true)
-  // });
- });
+  const [body, setBody] = useState('');
+  useEffect(() => {
+    // PushNotification.onNotificationOpened((notification) => {
+    //   // console.log('the notification was tapped', notification.getData().data.pinpoint);
+    //   // Alert.alert("Notification tapped!")
+    //   console.log('the notification was tapped')
+    //   isTapped?setIsTapped(false):setIsTapped(true)
+    // });
+    // load
+    if (Platform.OS === 'ios') {
+      storage
+        .load({
+          key: 'notificationTappedBg',
+
+          // autoSync (default: true) means if data is not found or has expired,
+          // then invoke the corresponding sync method
+          autoSync: true,
+
+          // syncInBackground (default: true) means if data expired,
+          // return the outdated data first while invoking the sync method.
+          // If syncInBackground is set to false, and there is expired data,
+          // it will wait for the new data and return only after the sync completed.
+          // (This, of course, is slower)
+          syncInBackground: true,
+
+          // you can pass extra params to the sync method
+          // see sync example below
+          syncParams: {
+            extraFetchOptions: {
+              // blahblah
+            },
+            someFlag: true,
+          },
+        })
+        .then(ret => {
+          // found data go to then()
+          console.log(ret.body);
+          setBody(ret.body);
+        })
+        .catch(err => {
+          // any exception including data not found
+          // goes to catch()
+          console.warn(err.message);
+          switch (err.name) {
+            case 'NotFoundError':
+              // TODO;
+              break;
+            case 'ExpiredError':
+              // TODO
+              break;
+          }
+        });
+    }
+  });
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -74,31 +111,28 @@ const App = () => {
 
   async function signOut() {
     try {
-        await Auth.signOut();
+      await Auth.signOut();
     } catch (error) {
-        console.log('error signing out: ', error);
+      console.log('error signing out: ', error);
     }
-}
+  }
 
-const endpointId = 
-  Analytics.getPluggable('AWSPinpoint')._config.endpointId;
-  console.log("EnpintID -> ", endpointId);
+  const endpointId = Analytics.getPluggable('AWSPinpoint')._config.endpointId;
+  console.log('EnpintID -> ', endpointId);
   return (
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        {/* <Button title='Signout' onPress={signOut} /> */}
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          {isTapped && <Section >
+    <ScrollView contentInsetAdjustmentBehavior="automatic">
+      <Header />
+      {/* <Button title='Signout' onPress={signOut} /> */}
+      <View>
+        <Text style={{color: 'white'}}>{body}</Text>
+        {isTapped && (
+          <Section>
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
-          </Section>}
-        </View>
-      </ScrollView>
+          </Section>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -121,5 +155,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default withAuthenticator(App);
 export default App;

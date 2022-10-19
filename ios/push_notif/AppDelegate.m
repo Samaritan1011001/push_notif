@@ -1,6 +1,8 @@
 #import "AppDelegate.h"
+//Add these two lines here
 #import <UserNotifications/UserNotifications.h>
 #import <RNCPushNotificationIOS.h>
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
